@@ -1,0 +1,31 @@
+*, *:after, *:before {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+#head {
+  border: 1px solid black;
+  height: 40px;
+  text-align: center;
+}
+
+#container {
+  display: grid;
+  grid-template-columns: 30px 1fr 30px 4fr;
+  border: 1px solid orange;
+  height: 100vh;
+}
+#container #project-container {
+  grid-column: 1/3;
+  border: 1px solid red;
+}
+#container #slider {
+  grid-column: 3/4;
+  border: 1px solid blue;
+}
+#container #main-container {
+  grid-column: -2/-1;
+  border: 1px solid green;
+}
+
+/*# sourceMappingURL=style.css.map */
