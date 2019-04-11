@@ -1,13 +1,14 @@
 import {showProjectForm} from './helper'
-
+let projectId = 0;
 
 class Project {
   
   constructor(title, description) {
-    console.log("project setup");
     this.title = title;
     this.description = description;
     this.container = [];
+    this.projectId = projectId;
+    projectId++;
   }
 }
 
