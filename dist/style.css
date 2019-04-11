@@ -27,5 +27,27 @@
   grid-column: -2/-1;
   border: 1px solid green;
 }
+#container #form-container {
+  position: absolute;
+  left: 50%;
+  top: 100px;
+}
+#container #form-container #project-form {
+  position: relative;
+  top: 100px;
+  left: -50%;
+  display: flex;
+  flex-direction: column;
+  background-color: #1869d3;
+  padding: 10px;
+  width: 500px;
+  box-shadow: 0px 0px 50px black;
+  transition-duration: 5s;
+  transform: 5s;
+}
+#container #form-container #project-form * {
+  padding: 10px;
+  margin: 1%;
+}
 
 /*# sourceMappingURL=style.css.map */
