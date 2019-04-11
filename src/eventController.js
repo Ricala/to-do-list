@@ -53,6 +53,7 @@ function eventController(mainProject) {
     projectItem.addEventListener('click', function(){
       render.displayFullProject(project);
       attachDeleteBtn();
+      attachToDoBtn();
     });
 
     function attachDeleteBtn() {
@@ -65,6 +66,23 @@ function eventController(mainProject) {
         }
       })
     }
+
+    function attachToDoBtn() {
+      let todoBtn = document.querySelector(".add-to-do-btn");
+      todoBtn.addEventListener('click', function(){toDoForm()})
+    }
+  }
+
+  function toDoForm() {
+    render.showToDoForm();
+    let todoUpdateBtn = document.getElementById('todo-update-btn');
+    let todoCancelBtn = document.getElementById('todo-cancel-btn');
+
+    todoUpdateBtn.addEventListener('click', function(){createToDo()});
+    todoCancelBtn.addEventListener('click', function(){console.log("delete")});
+  }
+
+  function createToDo() {
   }
 
 };
