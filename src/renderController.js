@@ -72,6 +72,7 @@ const displayContaniner = document.getElementById("display-container")
     projectContainer.appendChild(projectTitle);
 
     let descriptionDiv = document.createElement("div");
+    descriptionDiv.className = "display-description"
 
     let projectDescrip = document.createElement("h3");
     projectDescrip.appendChild(document.createTextNode(project.description));
@@ -90,6 +91,37 @@ const displayContaniner = document.getElementById("display-container")
 
     projectContainer.appendChild(addToDoBtn);
 
+    let listContainer = document.createElement("div");
+    listContainer.className = "list-container"
+
+    let inProgressContainer = document.createElement("div")
+    inProgressContainer.className = "in-progress-container"
+    
+    let progressHeader = document.createElement("h3");
+    progressHeader.appendChild(document.createTextNode("In Progress"))
+    inProgressContainer.appendChild(progressHeader);
+
+    let inProgressList = document.createElement("ul");
+    inProgressList.className = "in-progress-list"
+    inProgressContainer.appendChild(inProgressList);
+
+    listContainer.appendChild(inProgressContainer);
+
+    let completedContainer = document.createElement("div")
+    completedContainer.className = "completed-container"
+    
+    let completedHeader = document.createElement("h3");
+    completedHeader.appendChild(document.createTextNode("Completed"))
+    completedContainer.appendChild(completedHeader);
+
+    let completedList = document.createElement("ul");
+    completedList.className = "completed-list"
+    completedContainer.appendChild(completedList);
+
+    listContainer.appendChild(completedContainer);
+
+    projectContainer.appendChild(listContainer);
+
     displayContaniner.appendChild(projectContainer);
   }
 
@@ -102,7 +134,11 @@ const displayContaniner = document.getElementById("display-container")
   }
 
   function showToDoForm() {
+    let newToDoBtn = document.querySelector(".add-to-do-btn")
+    let projectDeleteBtn = document.querySelector(".delete-project-btn")
+    projectDeleteBtn.disabled = true;
     newProjectBtn.disabled = true;
+    newToDoBtn.disabled = true;
     let formContainer = document.createElement("div");
     formContainer.id = "form-container"
 
@@ -154,6 +190,76 @@ const displayContaniner = document.getElementById("display-container")
     formContainer.appendChild(form);
     container.appendChild(formContainer);
   }
+  
+  function removeToDoForm() {
+    let newToDoBtn = document.querySelector(".add-to-do-btn")
+    let projectDeleteBtn = document.querySelector(".delete-project-btn")
+    projectDeleteBtn.disabled = false;
+    newProjectBtn.disabled = false;
+    newToDoBtn.disabled = false;
+    container.removeChild(container.lastChild);
+  }
+
+  function displayToDoItems(project) {
+    let inProgressList = document.querySelector(".in-progress-list");
+    let completedList = document.querySelector(".completed-list");
+
+    if(project.container.length > 0) {
+      project.container.forEach(element => {
+        let itemExists = false;
+
+        for (let i = 0; i < inProgressList.childNodes.length; i ++){
+          if(inProgressList.childNodes[i].id == `toDo-${element.toDoId}`) {
+            itemExists = true;
+          }
+        }
+
+        for (let i = 0; i < completedList.childNodes.length; i ++){
+          if(completedList.childNodes[i].id == `toDo-${element.toDoId}`) {
+            itemExists = true;
+          }
+        }
+
+        if(itemExists) {
+          return; 
+        }
+
+        let toDoContainer = document.createElement('li');
+        toDoContainer.id = `toDo-${element.toDoId}`
+  
+        let mainToDoContainer = document.createElement('div');
+        mainToDoContainer.className = "main-to-do-container"
+  
+        let extendedToDoContainer = document.createElement('div');
+        extendedToDoContainer.className = "extended-to-do-container"
+  
+        let completeCheckbox = document.createElement("input");
+        completeCheckbox.type = "checkbox";
+        completeCheckbox.class = "complete-checkbox"
+        completeCheckbox.name = "complete-checkbox"
+        mainToDoContainer.appendChild(completeCheckbox);
+  
+        if(element.priority) {
+          let priorityIcon = document.createElement("h5");
+          priorityIcon.appendChild(document.createTextNode("🚩"))
+          mainToDoContainer.appendChild(priorityIcon);
+        }
+  
+        let toDoTitle = document.createElement("h3");
+        toDoTitle.appendChild(document.createTextNode(element.title));
+        mainToDoContainer.appendChild(toDoTitle);
+
+        toDoContainer.appendChild(mainToDoContainer);
+  
+        if(element.completed) {
+          completeCheckbox.checked = true;
+          completedList.appendChild(toDoContainer);
+        } else {
+          inProgressList.appendChild(toDoContainer);
+        }
+      });
+    }
+  }
 
   export {
     showProjectForm,
@@ -161,5 +267,7 @@ const displayContaniner = document.getElementById("display-container")
     addProjectList,
     displayFullProject,
     removeProject,
-    showToDoForm
+    showToDoForm,
+    removeToDoForm,
+    displayToDoItems
   }

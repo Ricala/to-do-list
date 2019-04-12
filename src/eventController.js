@@ -1,4 +1,5 @@
 import {Project} from './project'
+import {ToDo} from './todo'
 import * as render from './renderController'
 
 function eventController(mainProject) {
@@ -13,6 +14,24 @@ function eventController(mainProject) {
     let project2 = new Project("Project two", "two This is a descript for a project two");
     let project3 = new Project("Project three", "three This is a descript for a project three");
 
+    let todo1 = new ToDo("todo one", "todo description text text text one one", false);
+    let todo2 = new ToDo("todo two", "todo description text text text two two", false);
+    let todo3 = new ToDo("todo three", "todo description text text text three three", true);
+
+    
+
+    project1.container.push(todo1);
+    project1.container.push(todo2);
+    project1.container.push(todo3);
+
+    project2.container.push(todo1);
+    project2.container.push(todo2);
+    project2.container.push(todo3);
+
+    project3.container.push(todo1);
+    project3.container.push(todo2);
+    project3.container.push(todo3);
+
     mainProject.push(project1);
     mainProject.push(project2);
     mainProject.push(project3);
@@ -20,6 +39,11 @@ function eventController(mainProject) {
     attachProjectListener(project1);
     attachProjectListener(project2);
     attachProjectListener(project3);
+
+    attachToDoListeners(todo1);
+    attachToDoListeners(todo2);
+    attachToDoListeners(todo3);
+    //render.displayToDoItems(project1);
   })();
 
   function showProjectForm() {
@@ -52,6 +76,7 @@ function eventController(mainProject) {
     let projectItem = render.addProjectList(project);
     projectItem.addEventListener('click', function(){
       render.displayFullProject(project);
+      render.displayToDoItems(project);
       attachDeleteBtn();
       attachToDoBtn();
     });
@@ -69,20 +94,47 @@ function eventController(mainProject) {
 
     function attachToDoBtn() {
       let todoBtn = document.querySelector(".add-to-do-btn");
-      todoBtn.addEventListener('click', function(){toDoForm()})
+      todoBtn.addEventListener('click', function(){toDoForm(project)})
     }
   }
 
-  function toDoForm() {
+  function toDoForm(project) {
     render.showToDoForm();
     let todoUpdateBtn = document.getElementById('todo-update-btn');
     let todoCancelBtn = document.getElementById('todo-cancel-btn');
 
-    todoUpdateBtn.addEventListener('click', function(){createToDo()});
-    todoCancelBtn.addEventListener('click', function(){console.log("delete")});
+    todoUpdateBtn.addEventListener('click', function(){createToDo(project)});
+    todoCancelBtn.addEventListener('click', function(){render.removeToDoForm()});
   }
 
-  function createToDo() {
+  function createToDo(project) {
+    let toDoTitle = document.getElementById("todo-title").value;
+    let toDoDescrip = document.getElementById("todo-descrip").value;
+    let priority = document.getElementById("priority-check").checked;
+    
+    if(toDoTitle == ""){
+      alert("Please enter a title")
+    } else if (toDoDescrip == "") {
+      alert("Please enter a description")
+    } else {
+      let newToDo = new ToDo(toDoTitle, toDoDescrip, priority);
+      project.container.push(newToDo);
+      render.displayToDoItems(project);
+      render.removeToDoForm();
+      attachToDoListeners(newToDo);
+    }
+  }
+
+  function attachToDoListeners(toDoItem) {
+    let completedCheckBox = toDoItem.querySelector("input[name=complete-checkbox]");
+    
+    completedCheckBox.addEventListener('change', function() {
+      if(this.checked) {
+        console.log("is checked");
+      } else {
+        console.log("is unchecked")
+      }
+    })
   }
 
 };

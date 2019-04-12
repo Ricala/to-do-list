@@ -3,6 +3,12 @@
   margin: 0;
 }
 
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
 #head {
   border: 1px solid black;
   height: 40px;
@@ -23,9 +29,25 @@
   grid-column: 3/4;
   border: 1px solid blue;
 }
-#container #main-container {
+#container #display-container {
   grid-column: -2/-1;
   border: 1px solid green;
+}
+#container .project-display {
+  background-color: rgba(0, 0, 0, 0.068);
+}
+#container .project-display .display-description {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid red;
+}
+#container .project-display .completed-container {
+  background-color: rgba(255, 0, 0, 0.349);
+}
+#container .project-display .main-to-do-container {
+  display: flex;
+  align-content: center;
+  align-items: center;
 }
 #container #form-container {
   position: absolute;
