@@ -11,22 +11,15 @@ const displayContaniner = document.getElementById("display-container")
 
     if (showBar) {
       projectContainer.style.display = "block";
-      projectContainer.style.gridColumn = `1 / 3`;
       displayContainer.style.gridColumn = `-2 / -1`;
       slider.style.gridColumn = `3 / 4`;
-      slider.style.transform = "all 5s";
-      slider.style.transition = "all 5s";
+      
     } else {
       projectContainer.style.display = "none";
       displayContainer.style.gridColumn = `2 / -1`;
       slider.style.gridColumn = `1 / 2`;
-
-      slider.style.transform = "all 5s";
-      slider.style.transition = "all 5s";
     }
   }
-
-
 
   function showProjectForm() {
     newProjectBtn.disabled = true;
@@ -75,6 +68,7 @@ const displayContaniner = document.getElementById("display-container")
   function addProjectList(project){
     let itemContainer = document.createElement("div");
     itemContainer.id = `list-item-${project.projectId}`;
+    itemContainer.className = "project-items"
     let listItem = document.createElement("h3");
     listItem.appendChild(document.createTextNode(project.title));
     itemContainer.appendChild(listItem);
@@ -94,6 +88,7 @@ const displayContaniner = document.getElementById("display-container")
 
     let projectTitle = document.createElement("h2");
     projectTitle.appendChild(document.createTextNode(project.title));
+    projectTitle.className = "project-header";
     projectContainer.appendChild(projectTitle);
 
     let descriptionDiv = document.createElement("div");
@@ -103,18 +98,21 @@ const displayContaniner = document.getElementById("display-container")
     projectDescrip.appendChild(document.createTextNode(project.description));
     descriptionDiv.appendChild(projectDescrip);
 
+    let btnDiv = document.createElement("div");
+
+    let addToDoBtn = document.createElement("button");
+    addToDoBtn.className = "add-to-do-btn"
+    addToDoBtn.appendChild(document.createTextNode("new to do"));
+    btnDiv.appendChild(addToDoBtn);
+
     let deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-project-btn";
     deleteBtn.appendChild(document.createTextNode("delete"));
-    descriptionDiv.appendChild(deleteBtn);
+    btnDiv.appendChild(deleteBtn);
 
-    projectContainer.appendChild(descriptionDiv);
+    descriptionDiv.appendChild(btnDiv);
     
-    let addToDoBtn = document.createElement("button");
-    addToDoBtn.className = "add-to-do-btn"
-    addToDoBtn.appendChild(document.createTextNode("+"));
-
-    projectContainer.appendChild(addToDoBtn);
+    projectContainer.appendChild(descriptionDiv);
 
     let listContainer = document.createElement("div");
     listContainer.className = "list-container"
@@ -124,6 +122,7 @@ const displayContaniner = document.getElementById("display-container")
     
     let progressHeader = document.createElement("h3");
     progressHeader.appendChild(document.createTextNode("In Progress"))
+    progressHeader.className = "list-header"
     inProgressContainer.appendChild(progressHeader);
 
     let inProgressList = document.createElement("ul");
@@ -137,6 +136,7 @@ const displayContaniner = document.getElementById("display-container")
     
     let completedHeader = document.createElement("h3");
     completedHeader.appendChild(document.createTextNode("Completed"))
+    completedHeader.className = "list-header"
     completedContainer.appendChild(completedHeader);
 
     let completedList = document.createElement("ul");

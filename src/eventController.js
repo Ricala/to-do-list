@@ -20,13 +20,13 @@ function eventController(mainProject) {
   })();
 
   const initialProjects = (() => {
-    let project1 = new Project("Project one", "one This is a descript for a project one");
-    let project2 = new Project("Project two", "two This is a descript for a project two");
-    let project3 = new Project("Project three", "three This is a descript for a project three");
+    let project1 = new Project("Project one", "This is a descript for a project one");
+    let project2 = new Project("Project two", "This is a descript for a project two");
+    let project3 = new Project("Project three", "This is a descript for a project three");
 
-    let todo1 = new ToDo("todo one", "todo description text text text one one", false);
-    let todo2 = new ToDo("todo two", "todo description text text text two two", false);
-    let todo3 = new ToDo("todo three", "todo description text text text three three", true);
+    let todo1 = new ToDo("First to do item", "todo description text text text one one", false);
+    let todo2 = new ToDo("First to do item", "todo description text text text two two", false);
+    let todo3 = new ToDo("First to do item", "todo description text text text three three", true);
 
     
 
