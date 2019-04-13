@@ -3,7 +3,32 @@ const newProjectBtn = document.getElementById("new-proj-btn");
 const projectList = document.getElementById("project-list");
 const displayContaniner = document.getElementById("display-container")
 
-  export default function showProjectForm() {
+  function showProjectBar(showBar) {
+    const projectContainer = document.getElementById("project-container");
+    const displayContainer = document.getElementById("display-container");
+    const slider = document.getElementById("slider");
+    console.log("trying to switch menu")
+
+    if (showBar) {
+      projectContainer.style.display = "block";
+      projectContainer.style.gridColumn = `1 / 3`;
+      displayContainer.style.gridColumn = `-2 / -1`;
+      slider.style.gridColumn = `3 / 4`;
+      slider.style.transform = "all 5s";
+      slider.style.transition = "all 5s";
+    } else {
+      projectContainer.style.display = "none";
+      displayContainer.style.gridColumn = `2 / -1`;
+      slider.style.gridColumn = `1 / 2`;
+
+      slider.style.transform = "all 5s";
+      slider.style.transition = "all 5s";
+    }
+  }
+
+
+
+  function showProjectForm() {
     newProjectBtn.disabled = true;
     let formContainer = document.createElement("div");
     formContainer.id = "form-container"
@@ -230,21 +255,19 @@ const displayContaniner = document.getElementById("display-container")
         let mainToDoContainer = document.createElement('div');
         mainToDoContainer.className = "main-to-do-container"
   
-        let extendedToDoContainer = document.createElement('div');
-        extendedToDoContainer.className = "extended-to-do-container"
-  
         let completeCheckbox = document.createElement("input");
         completeCheckbox.type = "checkbox";
         completeCheckbox.class = "complete-checkbox"
-        completeCheckbox.name = "complete-checkbox"
+        completeCheckbox.name = `complete-checkbox-${element.toDoId}`
         mainToDoContainer.appendChild(completeCheckbox);
   
-        if(element.priority) {
-          let priorityIcon = document.createElement("h5");
-          priorityIcon.appendChild(document.createTextNode("🚩"))
-          mainToDoContainer.appendChild(priorityIcon);
-        }
-  
+        let priorityIcon = document.createElement("h5");
+        priorityIcon.className = "priority-icon"
+        if(element.priority) priorityIcon.appendChild(document.createTextNode("★"));
+        else priorityIcon.appendChild(document.createTextNode("☆"));
+        
+        mainToDoContainer.appendChild(priorityIcon);
+        
         let toDoTitle = document.createElement("h3");
         toDoTitle.appendChild(document.createTextNode(element.title));
         mainToDoContainer.appendChild(toDoTitle);
@@ -261,7 +284,51 @@ const displayContaniner = document.getElementById("display-container")
     }
   }
 
+  function moveToDoItem(id, isComplete) {
+    let toDoItem = document.getElementById(`toDo-${id}`);
+    let inProgressList = document.querySelector(".in-progress-list");
+    let completedList = document.querySelector(".completed-list");
+
+    if (isComplete) {
+      inProgressList.removeChild(toDoItem);
+      completedList.appendChild(toDoItem);
+    } else {
+      completedList.removeChild(toDoItem);
+      inProgressList.appendChild(toDoItem);
+    }
+  }
+
+  function extendToDoItem(toDoItem) {
+    let toDoContainer = document.getElementById(`toDo-${toDoItem.toDoId}`);
+
+    if(toDoContainer.lastChild.className == "extended-to-do-container") {
+      toDoContainer.removeChild(toDoContainer.lastChild);
+      return;
+    }
+
+    else {
+      let extendedToDoContainer = document.createElement('div');
+      extendedToDoContainer.className = "extended-to-do-container"
+
+      let todoDescription = document.createElement('h4');
+      todoDescription.appendChild(document.createTextNode(toDoItem.description));
+      extendedToDoContainer.appendChild(todoDescription);
+
+      let btnDiv = document.createElement('div');
+      btnDiv.className = "to-do-extended-btns";
+
+      let deleteBtn = document.createElement("button");
+      deleteBtn.id = "delete-to-do-btn";
+      deleteBtn.appendChild(document.createTextNode("Delete"));
+      btnDiv.appendChild(deleteBtn);
+      extendedToDoContainer.appendChild(btnDiv);
+
+      toDoContainer.appendChild(extendedToDoContainer);
+    }
+  }
+
   export {
+    showProjectBar,
     showProjectForm,
     removeProjectForm,
     addProjectList,
@@ -269,5 +336,7 @@ const displayContaniner = document.getElementById("display-container")
     removeProject,
     showToDoForm,
     removeToDoForm,
-    displayToDoItems
+    displayToDoItems,
+    moveToDoItem,
+    extendToDoItem
   }

@@ -3,6 +3,16 @@ import {ToDo} from './todo'
 import * as render from './renderController'
 
 function eventController(mainProject) {
+
+  const btnSliderListener = (() => {
+    let showBar = false;
+    const btnSlider = document.getElementById("slider");
+    btnSlider.addEventListener('click', function(){
+      render.showProjectBar(showBar)
+      showBar = !showBar;
+    });
+  })();
+
   
   const newProjectListener = (() => {
     const newProjectBtn = document.getElementById("new-proj-btn");
@@ -39,10 +49,6 @@ function eventController(mainProject) {
     attachProjectListener(project1);
     attachProjectListener(project2);
     attachProjectListener(project3);
-
-    attachToDoListeners(todo1);
-    attachToDoListeners(todo2);
-    attachToDoListeners(todo3);
     //render.displayToDoItems(project1);
   })();
 
@@ -77,6 +83,7 @@ function eventController(mainProject) {
     projectItem.addEventListener('click', function(){
       render.displayFullProject(project);
       render.displayToDoItems(project);
+      attachToDoListeners(project);
       attachDeleteBtn();
       attachToDoBtn();
     });
@@ -121,22 +128,42 @@ function eventController(mainProject) {
       project.container.push(newToDo);
       render.displayToDoItems(project);
       render.removeToDoForm();
-      attachToDoListeners(newToDo);
+      attachSingleToDoListener(newToDo);
     }
   }
 
-  function attachToDoListeners(toDoItem) {
-    let completedCheckBox = toDoItem.querySelector("input[name=complete-checkbox]");
-    
-    completedCheckBox.addEventListener('change', function() {
-      if(this.checked) {
-        console.log("is checked");
-      } else {
-        console.log("is unchecked")
-      }
-    })
+  function attachToDoListeners(project) {
+    project.container.forEach(element => {
+      toDoListener(element);
+    });
   }
-
 };
+
+function attachSingleToDoListener(newToDo) {
+  toDoListener(newToDo);
+}
+
+function toDoListener (element) {
+  let toDoContainer = document.getElementById(`toDo-${element.toDoId}`);
+      let isExtended = false;
+      toDoContainer.addEventListener('click', function() {
+        render.extendToDoItem(element);
+        isExtended = !isExtended;
+      })
+
+      let completedCheckBox = document.querySelector(`input[name=complete-checkbox-${element.toDoId}]`);
+      
+      completedCheckBox.addEventListener('change', function() {
+        if(this.checked) {
+          render.moveToDoItem(element.toDoId, true);
+        } else {
+          render.moveToDoItem(element.toDoId, false);
+        }
+        if(isExtended) {
+          render.extendToDoItem(element);
+          isExtended = false;
+        }
+      })
+}
 
 export {eventController}
