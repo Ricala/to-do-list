@@ -20,9 +20,9 @@ function eventController(mainProject) {
   })();
 
   const initialProjects = (() => {
-    let project1 = new Project("Project one", "This is a descript for a project one");
-    let project2 = new Project("Project two", "This is a descript for a project two");
-    let project3 = new Project("Project three", "This is a descript for a project three");
+    let project1 = new Project("Project one");
+    let project2 = new Project("Project two");
+    let project3 = new Project("Project three");
 
     let todo1 = new ToDo("First to do item", "todo description text text text one one", false);
     let todo2 = new ToDo("First to do item", "todo description text text text two two", false);
@@ -63,14 +63,11 @@ function eventController(mainProject) {
 
   function createProject() {
     const newProjTitle = document.getElementById('project-title').value;
-    const newProjDescrip = document.getElementById('project-descrip').value;
 
     if(newProjTitle == "") {
       alert("Please enter a project title")
-    } else if (newProjDescrip == "") {
-      alert("Please enter a project description")
     } else {
-      let newProj = new Project(newProjTitle, newProjDescrip);
+      let newProj = new Project(newProjTitle);
       mainProject.push(newProj);
 
       render.removeProjectForm();
@@ -128,29 +125,31 @@ function eventController(mainProject) {
       project.container.push(newToDo);
       render.displayToDoItems(project);
       render.removeToDoForm();
-      attachSingleToDoListener(newToDo);
+      attachSingleToDoListener(project, newToDo);
     }
   }
 
   function attachToDoListeners(project) {
     project.container.forEach(element => {
-      toDoListener(element);
+      toDoListener(project, element);
     });
   }
-};
 
-function attachSingleToDoListener(newToDo) {
-  toDoListener(newToDo);
-}
+  function attachSingleToDoListener(project, newToDo) {
+    toDoListener(project, newToDo);
+  }
 
-function toDoListener (element) {
-  let toDoContainer = document.getElementById(`toDo-${element.toDoId}`);
+  function toDoListener (project, element) {
+    let toDoContainer = document.getElementById(`toDo-${element.toDoId}`);
       let isExtended = false;
       toDoContainer.addEventListener('click', function() {
         render.extendToDoItem(element);
+        if(!isExtended){
+          deleteBtnListener();
+        }
         isExtended = !isExtended;
       })
-
+  
       let completedCheckBox = document.querySelector(`input[name=complete-checkbox-${element.toDoId}]`);
       
       completedCheckBox.addEventListener('change', function() {
@@ -164,6 +163,18 @@ function toDoListener (element) {
           isExtended = false;
         }
       })
-}
+  
+      function deleteBtnListener() {
+        let deleteBtn = document.getElementById(`delete-todo-${element.toDoId}`);
+        deleteBtn.addEventListener('click', function() {
+          project.container.splice(element.toDoId, 1);
+          render.removeToDoItem(element.toDoId);
+        })
+  
+      }
+  }
+};
+
+
 
 export {eventController}

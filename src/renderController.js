@@ -36,9 +36,6 @@ const displayContaniner = document.getElementById("display-container")
     projectTitle.type = ("text", "text");
     projectTitle.id = "project-title";
 
-    let projectDescrip = document.createElement("input")
-    projectDescrip.type = ("text", "text");
-    projectDescrip.id = "project-descrip";
 
     let btnDiv = document.createElement("div");
 
@@ -54,7 +51,6 @@ const displayContaniner = document.getElementById("display-container")
 
     form.appendChild(formHeader);
     form.appendChild(projectTitle);
-    form.appendChild(projectDescrip);
     form.appendChild(btnDiv);
     formContainer.appendChild(form);
     container.appendChild(formContainer);
@@ -94,25 +90,20 @@ const displayContaniner = document.getElementById("display-container")
     let descriptionDiv = document.createElement("div");
     descriptionDiv.className = "display-description"
 
-    let projectDescrip = document.createElement("h3");
-    projectDescrip.appendChild(document.createTextNode(project.description));
-    descriptionDiv.appendChild(projectDescrip);
-
     let btnDiv = document.createElement("div");
+    btnDiv.className = "btn-container";
 
     let addToDoBtn = document.createElement("button");
     addToDoBtn.className = "add-to-do-btn"
-    addToDoBtn.appendChild(document.createTextNode("new to do"));
+    addToDoBtn.appendChild(document.createTextNode("➕"));
     btnDiv.appendChild(addToDoBtn);
 
     let deleteBtn = document.createElement("button");
     deleteBtn.className = "delete-project-btn";
-    deleteBtn.appendChild(document.createTextNode("delete"));
+    deleteBtn.appendChild(document.createTextNode("🗑️"));
     btnDiv.appendChild(deleteBtn);
 
-    descriptionDiv.appendChild(btnDiv);
-    
-    projectContainer.appendChild(descriptionDiv);
+    projectContainer.appendChild(btnDiv);
 
     let listContainer = document.createElement("div");
     listContainer.className = "list-container"
@@ -318,13 +309,23 @@ const displayContaniner = document.getElementById("display-container")
       btnDiv.className = "to-do-extended-btns";
 
       let deleteBtn = document.createElement("button");
-      deleteBtn.id = "delete-to-do-btn";
-      deleteBtn.appendChild(document.createTextNode("Delete"));
+      deleteBtn.className = "delete-to-do-btn";
+      deleteBtn.id = `delete-todo-${toDoItem.toDoId}`;
+      deleteBtn.appendChild(document.createTextNode("🗑️"));
       btnDiv.appendChild(deleteBtn);
       extendedToDoContainer.appendChild(btnDiv);
 
       toDoContainer.appendChild(extendedToDoContainer);
     }
+  }
+
+  function removeToDoItem(id) {
+    let toDoItem = document.getElementById(`toDo-${id}`);
+    let inProgressList = document.querySelector(".in-progress-list");
+    let completedList = document.querySelector(".completed-list");
+
+    var hasChild = inProgressList.querySelector(`toDo-${id}`) != null;
+    console.log(hasChild);
   }
 
   export {
@@ -338,5 +339,6 @@ const displayContaniner = document.getElementById("display-container")
     removeToDoForm,
     displayToDoItems,
     moveToDoItem,
-    extendToDoItem
+    extendToDoItem,
+    removeToDoItem
   }
