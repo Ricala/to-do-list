@@ -1,4 +1,3 @@
-import {showProjectForm} from './helper'
 let projectId = 0;
 
 class Project {

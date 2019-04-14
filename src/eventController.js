@@ -5,51 +5,43 @@ import * as render from './renderController'
 function eventController(mainProject) {
 
   const btnSliderListener = (() => {
-    let showBar = false;
     const btnSlider = document.getElementById("slider");
+    let showBar = false;
+
     btnSlider.addEventListener('click', function(){
       render.showProjectBar(showBar)
       showBar = !showBar;
     });
   })();
 
-  
   const newProjectListener = (() => {
     const newProjectBtn = document.getElementById("new-proj-btn");
     newProjectBtn.addEventListener('click', function(){showProjectForm()})
   })();
 
   const initialProjects = (() => {
-    let project1 = new Project("Project one");
-    let project2 = new Project("Project two");
-    let project3 = new Project("Project three");
+    let project1 = new Project("Default Project: Click Me");
 
-    let todo1 = new ToDo("First to do item", "todo description text text text one one", false);
-    let todo2 = new ToDo("First to do item", "todo description text text text two two", false);
-    let todo3 = new ToDo("First to do item", "todo description text text text three three", true);
-
-    
+    let todo1 = new ToDo("Welcome to your To-Do List *CLICK ME*", "This extends your item to show a description!", false);
+    let todo2 = new ToDo("Add a new To-Do item by pressing the green \"+\" above", "", false);
+    let todo3 = new ToDo("Remove To-Do item by pressing the trash can in the description", "->> That way ->>", false);
+    let todo4 = new ToDo("To the left you can see your priority star", "☆ is standard and ★ is priority", true);
+    let todo5 = new ToDo("Select the check box to complete your task", "Select it again to move back to \"In Progress\"", false);
+    let todo6 = new ToDo("Create a new Project by selecting the green + found under Projects", "", false);
+    let todo7 = new ToDo("Remove a project by selecting the red trash can in the top right", "Don't worry you'll be asked to confirm first", false);
+    let todo8 = new ToDo("Enjoy your new To-Do List!", "Created by Eric Szywala @github/ricala", true);
 
     project1.container.push(todo1);
     project1.container.push(todo2);
     project1.container.push(todo3);
-
-    project2.container.push(todo1);
-    project2.container.push(todo2);
-    project2.container.push(todo3);
-
-    project3.container.push(todo1);
-    project3.container.push(todo2);
-    project3.container.push(todo3);
+    project1.container.push(todo4);
+    project1.container.push(todo5);
+    project1.container.push(todo6);
+    project1.container.push(todo7);
+    project1.container.push(todo8);
 
     mainProject.push(project1);
-    mainProject.push(project2);
-    mainProject.push(project3);
-
     attachProjectListener(project1);
-    attachProjectListener(project2);
-    attachProjectListener(project3);
-    //render.displayToDoItems(project1);
   })();
 
   function showProjectForm() {
@@ -59,7 +51,7 @@ function eventController(mainProject) {
 
     projUpdateBtn.addEventListener('click', function(){createProject()});
     projCancelBtn.addEventListener('click', function(){render.removeProjectForm()});
-  }
+  };
 
   function createProject() {
     const newProjTitle = document.getElementById('project-title').value;
@@ -73,7 +65,7 @@ function eventController(mainProject) {
       render.removeProjectForm();
       attachProjectListener(newProj);
     }
-  }
+  };
 
   function attachProjectListener(project) {
     let projectItem = render.addProjectList(project);
@@ -94,13 +86,13 @@ function eventController(mainProject) {
           mainProject.splice(project.projectId, 1);
         }
       })
-    }
+    };
 
     function attachToDoBtn() {
       let todoBtn = document.querySelector(".add-to-do-btn");
       todoBtn.addEventListener('click', function(){toDoForm(project)})
     }
-  }
+  };
 
   function toDoForm(project) {
     render.showToDoForm();
@@ -109,7 +101,7 @@ function eventController(mainProject) {
 
     todoUpdateBtn.addEventListener('click', function(){createToDo(project)});
     todoCancelBtn.addEventListener('click', function(){render.removeToDoForm()});
-  }
+  };
 
   function createToDo(project) {
     let toDoTitle = document.getElementById("todo-title").value;
@@ -127,17 +119,17 @@ function eventController(mainProject) {
       render.removeToDoForm();
       attachSingleToDoListener(project, newToDo);
     }
-  }
+  };
 
   function attachToDoListeners(project) {
     project.container.forEach(element => {
       toDoListener(project, element);
     });
-  }
+  };
 
   function attachSingleToDoListener(project, newToDo) {
     toDoListener(project, newToDo);
-  }
+  };
 
   function toDoListener (project, element) {
     let toDoContainer = document.getElementById(`toDo-${element.toDoId}`);
@@ -148,15 +140,17 @@ function eventController(mainProject) {
           deleteBtnListener();
         }
         isExtended = !isExtended;
-      })
+      });
   
       let completedCheckBox = document.querySelector(`input[name=complete-checkbox-${element.toDoId}]`);
       
       completedCheckBox.addEventListener('change', function() {
         if(this.checked) {
           render.moveToDoItem(element.toDoId, true);
+          element.completed = true;
         } else {
           render.moveToDoItem(element.toDoId, false);
+          element.completed = false;
         }
         if(isExtended) {
           render.extendToDoItem(element);
@@ -168,13 +162,10 @@ function eventController(mainProject) {
         let deleteBtn = document.getElementById(`delete-todo-${element.toDoId}`);
         deleteBtn.addEventListener('click', function() {
           project.container.splice(element.toDoId, 1);
-          render.removeToDoItem(element.toDoId);
+          render.removeToDoItem(element);
         })
-  
       }
   }
 };
-
-
 
 export {eventController}

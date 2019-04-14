@@ -14,8 +14,17 @@ ul {
   padding: 0;
 }
 
-input[type=checkbox]
-{
+li {
+  margin-bottom: 5px;
+}
+
+li:hover {
+  cursor: pointer;
+  background-color: rgba(255, 255, 255, 0.336);
+  transition: 0.5s;
+}
+
+input[type=checkbox] {
   /* Double-sized Checkboxes */
   -ms-transform: scale(1.5); /* IE */
   -moz-transform: scale(1.5); /* FF */
@@ -41,7 +50,7 @@ input[type=checkbox]
 #container {
   display: grid;
   grid-template-columns: 30px 1fr 30px 4fr;
-  height: 100vh;
+  height: 93vh;
 
   .project-header {
     font-size: 2rem;
@@ -66,6 +75,12 @@ input[type=checkbox]
       margin: 2px 5px;
     }
 
+    #new-proj-btn:hover {
+      cursor: pointer;
+      background-color: rgba(44, 221, 9, 0.781);
+      transition: 0.5s;
+    }
+
     #project-list {
     
       *{
@@ -82,6 +97,11 @@ input[type=checkbox]
         box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.493);
         text-shadow: 1px 1px white;
       }
+
+      .project-items:hover {
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.719);
+      }
     }
   }
 
@@ -93,7 +113,11 @@ input[type=checkbox]
     color: black;
     display: flex;
     align-items: center;
+  }
 
+  #slider:hover {
+    cursor: pointer;
+    background-color: rgb(180, 241, 165)
   }
 
   #display-container {
@@ -117,6 +141,12 @@ input[type=checkbox]
       margin: 2px 5px;
     }
 
+    .add-to-do-btn:hover {
+      cursor: pointer;
+      background-color: rgba(44, 221, 9, 0.781);
+      transition: 0.5s;
+    }
+
     .delete-project-btn {
       background: rgba(243, 51, 51, 0.671);
       font-size: 1.2rem;
@@ -124,6 +154,12 @@ input[type=checkbox]
       height: 30px;
       width: 30px;
       margin: 2px 5px;
+    }
+
+    .delete-project-btn:hover {
+      cursor: pointer;
+      background-color: rgba(221, 9, 9, 0.671);
+      transition: 0.5s;
     }
 
     .list-header {
@@ -138,11 +174,6 @@ input[type=checkbox]
 
     .in-progress-container {
       min-height: 250px;
-      
-    }
-
-    .completed-container {
-      min-height: 250px;
     }
 
     .main-to-do-container {
@@ -150,20 +181,36 @@ input[type=checkbox]
       align-content: center;
       align-items: center;
       background-color: rgba(255, 255, 255, 0.541);
-      margin:1px;
+      
+      h3 {
+        margin-left: 10px;
+      }
+
+      h5 {
+        font-size: 1.2rem;
+      }
     }
 
     .extended-to-do-container {
       display: flex;
       justify-content: space-between;
-
+      align-items: center;
+      background-color: rgba(255, 255, 255, 0.541);
+      border-top: 1px solid rgba(0, 0, 0, 0.349);
+      
       .delete-to-do-btn {
       background: rgba(243, 51, 51, 0.671);
       font-size: 1.2rem;
-      border: 2px solid rgb(196, 231, 187);
+      border: 2px solid rgba(0, 0, 0, 0.616);
       height: 30px;
       width: 30px;
       margin: 2px 5px;
+      }
+      
+      .delete-to-do-btn:hover {
+        cursor: pointer;
+        background-color: rgba(221, 9, 9, 0.671);
+        transition: 0.5s;
       }
     }
   }
@@ -171,7 +218,7 @@ input[type=checkbox]
   #form-container {
     position: absolute;
     left: 50%;
-    top: 100px;
+    top: 25px;
   
     #project-form {
       position: relative;
@@ -179,20 +226,36 @@ input[type=checkbox]
       left: -50%;
       display: flex;
       flex-direction: column;
-      background-color: rgb(24, 105, 211);
+      background-color: rgb(196, 231, 187);
       padding: 10px;
       width: 500px;
-      box-shadow: 0px 0px 50px rgb(0, 0, 0);
+      border: 3px solid black;
+      border-radius: 10px;
+      box-shadow: 0px 0px 30px rgb(0, 0, 0);
     
       * {
         padding: 10px;
         margin: 1%;
       }
+
+      button {
+        font-size: 1rem;
+        font-family: 'Lora', serif;
+      }
+
+      label {
+        font-size: 1.2rem;
+        font-family: 'Lora', serif;
+      }
+
+      input {
+        font-size: 1rem;
+        font-family: 'Lora', serif;
+      }
     }
 
-    #to-do-form {
 
-    }
+
   }
 }
 

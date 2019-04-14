@@ -7,8 +7,8 @@ const displayContaniner = document.getElementById("display-container")
     const projectContainer = document.getElementById("project-container");
     const displayContainer = document.getElementById("display-container");
     const slider = document.getElementById("slider");
-    console.log("trying to switch menu")
 
+    //Switches project visibility by adjusting Grid
     if (showBar) {
       projectContainer.style.display = "block";
       displayContainer.style.gridColumn = `-2 / -1`;
@@ -30,18 +30,19 @@ const displayContaniner = document.getElementById("display-container")
     form.id = "project-form";
 
     let formHeader = document.createElement("h3");
-    formHeader.appendChild(document.createTextNode("Create new project"));
+    formHeader.appendChild(document.createTextNode("Create new Project"));
     
     let projectTitle = document.createElement("input")
     projectTitle.type = ("text", "text");
     projectTitle.id = "project-title";
-
+    projectTitle.placeholder = "Title";
+    projectTitle.maxLength = "75";
 
     let btnDiv = document.createElement("div");
 
     let updateBtn = document.createElement("button");
     updateBtn.id = "update-btn";
-    updateBtn.appendChild(document.createTextNode("update"));
+    updateBtn.appendChild(document.createTextNode("Create"));
     btnDiv.appendChild(updateBtn);
 
     let cancelBtn = document.createElement("button");
@@ -65,9 +66,11 @@ const displayContaniner = document.getElementById("display-container")
     let itemContainer = document.createElement("div");
     itemContainer.id = `list-item-${project.projectId}`;
     itemContainer.className = "project-items"
+
     let listItem = document.createElement("h3");
     listItem.appendChild(document.createTextNode(project.title));
     itemContainer.appendChild(listItem);
+
     projectList.appendChild(itemContainer);
 
     return itemContainer;
@@ -75,6 +78,7 @@ const displayContaniner = document.getElementById("display-container")
 
   function displayFullProject(project) {
 
+    //Removes current project display
     while(displayContaniner.firstChild){
       displayContaniner.removeChild(displayContaniner.firstChild);
     }
@@ -135,9 +139,7 @@ const displayContaniner = document.getElementById("display-container")
     completedContainer.appendChild(completedList);
 
     listContainer.appendChild(completedContainer);
-
     projectContainer.appendChild(listContainer);
-
     displayContaniner.appendChild(projectContainer);
   }
 
@@ -145,16 +147,18 @@ const displayContaniner = document.getElementById("display-container")
     while(displayContaniner.firstChild){
       displayContaniner.removeChild(displayContaniner.firstChild);
     }
-
     document.getElementById(`list-item-${project.projectId}`).remove();
   }
 
   function showToDoForm() {
-    let newToDoBtn = document.querySelector(".add-to-do-btn")
-    let projectDeleteBtn = document.querySelector(".delete-project-btn")
+    let newToDoBtn = document.querySelector(".add-to-do-btn");
+    let projectDeleteBtn = document.querySelector(".delete-project-btn");
+
+    //disables buttons while form is displayed
     projectDeleteBtn.disabled = true;
     newProjectBtn.disabled = true;
     newToDoBtn.disabled = true;
+
     let formContainer = document.createElement("div");
     formContainer.id = "form-container"
 
@@ -167,10 +171,14 @@ const displayContaniner = document.getElementById("display-container")
     let todoTitle = document.createElement("input")
     todoTitle.type = ("text", "text");
     todoTitle.id = "todo-title";
+    todoTitle.placeholder = "Title";
+    todoTitle.maxLength = "75"
 
     let todoDescrip = document.createElement("input")
     todoDescrip.type = ("text", "text");
     todoDescrip.id = "todo-descrip";
+    todoDescrip.placeholder = "Description";
+    todoDescrip.maxLength = "125";
 
     let priorityContainer = document.createElement("div");
     priorityContainer.className = "priority";
@@ -190,7 +198,7 @@ const displayContaniner = document.getElementById("display-container")
 
     let updateBtn = document.createElement("button");
     updateBtn.id = "todo-update-btn";
-    updateBtn.appendChild(document.createTextNode("update"));
+    updateBtn.appendChild(document.createTextNode("Create"));
     btnDiv.appendChild(updateBtn);
 
     let cancelBtn = document.createElement("button");
@@ -210,9 +218,11 @@ const displayContaniner = document.getElementById("display-container")
   function removeToDoForm() {
     let newToDoBtn = document.querySelector(".add-to-do-btn")
     let projectDeleteBtn = document.querySelector(".delete-project-btn")
+
     projectDeleteBtn.disabled = false;
     newProjectBtn.disabled = false;
     newToDoBtn.disabled = false;
+
     container.removeChild(container.lastChild);
   }
 
@@ -224,12 +234,13 @@ const displayContaniner = document.getElementById("display-container")
       project.container.forEach(element => {
         let itemExists = false;
 
+        //check if lists already have to-do element
         for (let i = 0; i < inProgressList.childNodes.length; i ++){
           if(inProgressList.childNodes[i].id == `toDo-${element.toDoId}`) {
             itemExists = true;
           }
         }
-
+        //check if lists already have to-do element
         for (let i = 0; i < completedList.childNodes.length; i ++){
           if(completedList.childNodes[i].id == `toDo-${element.toDoId}`) {
             itemExists = true;
@@ -277,8 +288,8 @@ const displayContaniner = document.getElementById("display-container")
 
   function moveToDoItem(id, isComplete) {
     let toDoItem = document.getElementById(`toDo-${id}`);
-    let inProgressList = document.querySelector(".in-progress-list");
-    let completedList = document.querySelector(".completed-list");
+    const inProgressList = document.querySelector(".in-progress-list");
+    const completedList = document.querySelector(".completed-list");
 
     if (isComplete) {
       inProgressList.removeChild(toDoItem);
@@ -290,13 +301,12 @@ const displayContaniner = document.getElementById("display-container")
   }
 
   function extendToDoItem(toDoItem) {
-    let toDoContainer = document.getElementById(`toDo-${toDoItem.toDoId}`);
-
+    const toDoContainer = document.getElementById(`toDo-${toDoItem.toDoId}`);
+    
     if(toDoContainer.lastChild.className == "extended-to-do-container") {
       toDoContainer.removeChild(toDoContainer.lastChild);
       return;
     }
-
     else {
       let extendedToDoContainer = document.createElement('div');
       extendedToDoContainer.className = "extended-to-do-container"
@@ -319,13 +329,16 @@ const displayContaniner = document.getElementById("display-container")
     }
   }
 
-  function removeToDoItem(id) {
-    let toDoItem = document.getElementById(`toDo-${id}`);
+  function removeToDoItem(element) {
+    let toDoItem = document.getElementById(`toDo-${element.toDoId}`);
     let inProgressList = document.querySelector(".in-progress-list");
     let completedList = document.querySelector(".completed-list");
 
-    var hasChild = inProgressList.querySelector(`toDo-${id}`) != null;
-    console.log(hasChild);
+    if(element.completed) {
+      completedList.removeChild(toDoItem);
+    } else {
+      inProgressList.removeChild(toDoItem)
+    }
   }
 
   export {
