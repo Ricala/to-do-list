@@ -1,11 +1,12 @@
-
-*, *:after, *:before {
+*,
+*:after,
+*:before {
   box-sizing: border-box;
   margin: 0;
 }
 
 body {
-  font-family: 'Lora', serif;
+  font-family: "Lora", serif;
 }
 
 ul {
@@ -24,16 +25,12 @@ li:hover {
   transition: 0.5s;
 }
 
-input[type=checkbox] {
+input[type="checkbox"] {
   /* Double-sized Checkboxes */
-  -ms-transform: scale(1.5); /* IE */
-  -moz-transform: scale(1.5); /* FF */
-  -webkit-transform: scale(1.5); /* Safari and Chrome */
-  -o-transform: scale(1.5); /* Opera */
+  transform: scale(1.5); /* Opera */
   padding: 20px;
   margin: 10px;
 }
-
 
 #head {
   border: 2px solid black;
@@ -63,9 +60,13 @@ input[type=checkbox] {
 
   #project-container {
     grid-column: 1 / 3;
-    background-image: linear-gradient(rgb(163, 198, 201), rgb(110, 203, 231), rgb(163, 198, 201));
+    background-image: linear-gradient(
+      rgb(163, 198, 201),
+      rgb(110, 203, 231),
+      rgb(163, 198, 201)
+    );
     box-shadow: inset 0 0 15px black;
-    
+
     #new-proj-btn {
       background: rgba(86, 211, 82, 0.637);
       border: 2px solid rgb(196, 231, 187);
@@ -82,8 +83,7 @@ input[type=checkbox] {
     }
 
     #project-list {
-    
-      *{
+      * {
         padding: 1%;
       }
 
@@ -117,16 +117,19 @@ input[type=checkbox] {
 
   #slider:hover {
     cursor: pointer;
-    background-color: rgb(180, 241, 165)
+    background-color: rgb(180, 241, 165);
   }
 
   #display-container {
     grid-column: -2 / -1;
-    background-image: linear-gradient(rgb(163, 198, 201), rgb(110, 203, 231), rgb(163, 198, 201));
+    background-image: linear-gradient(
+      rgb(163, 198, 201),
+      rgb(110, 203, 231),
+      rgb(163, 198, 201)
+    );
   }
 
   .project-display {
-
     .btn-container {
       display: flex;
       justify-content: space-between;
@@ -163,7 +166,7 @@ input[type=checkbox] {
     }
 
     .list-header {
-      text-align:center;
+      text-align: center;
       text-decoration: underline;
       font-size: 1.4rem;
       padding: 5px;
@@ -181,7 +184,7 @@ input[type=checkbox] {
       align-content: center;
       align-items: center;
       background-color: rgba(255, 255, 255, 0.541);
-      
+
       h3 {
         margin-left: 10px;
       }
@@ -197,16 +200,16 @@ input[type=checkbox] {
       align-items: center;
       background-color: rgba(255, 255, 255, 0.541);
       border-top: 1px solid rgba(0, 0, 0, 0.349);
-      
+
       .delete-to-do-btn {
-      background: rgba(243, 51, 51, 0.671);
-      font-size: 1.2rem;
-      border: 2px solid rgba(0, 0, 0, 0.616);
-      height: 45px;
-      width: 45px;
-      margin: 2px 5px;
+        background: rgba(243, 51, 51, 0.671);
+        font-size: 1.2rem;
+        border: 2px solid rgba(0, 0, 0, 0.616);
+        height: 45px;
+        width: 45px;
+        margin: 2px 5px;
       }
-      
+
       .delete-to-do-btn:hover {
         cursor: pointer;
         background-color: rgba(221, 9, 9, 0.671);
@@ -219,7 +222,7 @@ input[type=checkbox] {
     position: absolute;
     left: 50%;
     top: 25px;
-  
+
     #project-form {
       position: relative;
       top: 100px;
@@ -232,7 +235,7 @@ input[type=checkbox] {
       border: 3px solid black;
       border-radius: 10px;
       box-shadow: 0px 0px 30px rgb(0, 0, 0);
-    
+
       * {
         padding: 10px;
         margin: 1%;
@@ -240,24 +243,18 @@ input[type=checkbox] {
 
       button {
         font-size: 1rem;
-        font-family: 'Lora', serif;
+        font-family: "Lora", serif;
       }
 
       label {
         font-size: 1.2rem;
-        font-family: 'Lora', serif;
+        font-family: "Lora", serif;
       }
 
       input {
         font-size: 1rem;
-        font-family: 'Lora', serif;
+        font-family: "Lora", serif;
       }
     }
-
-
-
   }
 }
-
-
-

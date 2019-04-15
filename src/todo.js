@@ -1,7 +1,6 @@
 let toDoId = 0;
 
 class ToDo {
-  
   constructor(title, description, priority) {
     this.title = title;
     this.description = description;
@@ -12,5 +11,4 @@ class ToDo {
   }
 }
 
-
-export {ToDo}
+export { ToDo };

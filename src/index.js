@@ -1,4 +1,4 @@
-import {eventController} from './eventController'
+import { eventController } from "./eventController";
 let project = [];
 
 eventController(project);

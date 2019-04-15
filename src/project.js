@@ -1,7 +1,6 @@
 let projectId = 0;
 
 class Project {
-  
   constructor(title) {
     this.title = title;
     this.container = [];
@@ -10,5 +9,4 @@ class Project {
   }
 }
 
-
-export {Project}
+export { Project };
