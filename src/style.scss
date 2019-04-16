@@ -5,6 +5,27 @@
   margin: 0;
 }
 
+@keyframes animateForm {
+  from {
+    top:-250px;
+    transform: scale(0) 
+    rotate(45deg);
+  } to {
+    top: 25px;
+    transform: scale(1)
+    rotate(0deg);
+  }
+}
+
+@keyframes opacityAnim {
+  from {
+    opacity: 0;
+  } to {
+    opacity: 1;
+  }
+}
+
+
 body {
   font-family: "Lora", serif;
 }
@@ -23,6 +44,7 @@ li:hover {
   cursor: pointer;
   background-color: rgba(255, 255, 255, 0.336);
   transition: 0.5s;
+
 }
 
 input[type="checkbox"] {
@@ -74,6 +96,7 @@ input[type="checkbox"] {
       width: 45px;
       font-size: 1.2rem;
       margin: 2px 5px;
+      
     }
 
     #new-proj-btn:hover {
@@ -127,9 +150,11 @@ input[type="checkbox"] {
       rgb(110, 203, 231),
       rgb(163, 198, 201)
     );
+    
   }
 
   .project-display {
+    
     .btn-container {
       display: flex;
       justify-content: space-between;
@@ -184,6 +209,7 @@ input[type="checkbox"] {
       align-content: center;
       align-items: center;
       background-color: rgba(255, 255, 255, 0.541);
+      animation: opacityAnim .5s ease-in 0s;
 
       h3 {
         margin-left: 10px;
@@ -222,6 +248,7 @@ input[type="checkbox"] {
     position: absolute;
     left: 50%;
     top: 25px;
+    animation: animateForm .3s ease-in-out 0s;
 
     #project-form {
       position: relative;
@@ -235,6 +262,8 @@ input[type="checkbox"] {
       border: 3px solid black;
       border-radius: 10px;
       box-shadow: 0px 0px 30px rgb(0, 0, 0);
+
+
 
       * {
         padding: 10px;
